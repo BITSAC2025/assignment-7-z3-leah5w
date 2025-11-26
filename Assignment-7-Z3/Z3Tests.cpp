@@ -301,23 +301,24 @@ void Z3Tests::test7()
     assert(*p == 0);
  }
  */
-void Z3Tests::test8()
-{
-    expr arr = getZ3Expr("arr");
-    expr p = getZ3Expr("p");
-    expr a = getZ3Expr("a");
-
-    addToSolver(a == getZ3Expr(10));
-    addToSolver(arr == getMemObjAddress("arr"));
-    storeValue(arr, getZ3Expr(0));
-    storeValue(arr + 1, getZ3Expr(1));
-    expr cond = (a > getZ3Expr(5));
-    addToSolver(p == ite(cond, arr, arr + 1));
-
-    addToSolver(loadValue(p) == getZ3Expr(0));
-    printExprValues();
-    std::cout << solver.check() << std::endl;
-}
+ void Z3Tests::test8()
+ {
+     expr arr = getZ3Expr("arr");
+     expr p = getZ3Expr("p");
+     expr a = getZ3Expr("a");
+ 
+     addToSolver(arr == getMemObjAddress("arr"));
+ 
+     addToSolver(a == getZ3Expr(10));
+     storeValue(arr, getZ3Expr(0));
+     storeValue(arr + 1, getZ3Expr(1));
+     expr cond = (a > getZ3Expr(5));
+     addToSolver(p == ite(cond, arr, arr + 1));
+ 
+     addToSolver(loadValue(p) == getZ3Expr(0));
+     printExprValues();
+     std::cout << solver.check() << std::endl;
+ }
 
 /*
     // Struct and pointers
