@@ -307,7 +307,7 @@ void Z3Tests::test8()
     expr p = getZ3Expr("p");
     expr a = getZ3Expr("a");
 
-    addToSolver(arr == getMemObjAddress("arr"));
+    addToSolver(arr == getMemObjAddress("molloc"));
 
     addToSolver(a == getZ3Expr(10));
     storeValue(arr, getZ3Expr(0));
@@ -384,13 +384,12 @@ int main() {
 */
 void Z3Tests::test10()
 {
-    expr y = getZ3Expr("y");
     expr x = getZ3Expr("x");
+    expr y = getZ3Expr("y");
 
     addToSolver(y == getZ3Expr(2));
     addToSolver(x == getZ3Expr(3));
 
-    // addToSolver(x == getZ3Expr(3) && y == getZ3Expr(2));
     printExprValues();
     std::cout << solver.check() << std::endl;
 }
