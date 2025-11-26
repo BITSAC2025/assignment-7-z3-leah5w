@@ -307,11 +307,12 @@ void Z3Tests::test7()
      expr p = getZ3Expr("p");
      expr a = getZ3Expr("a");
  
-     addToSolver(a == getZ3Expr(10));
+
      addToSolver(arr == getMemObjAddress("arr"));
 
      storeValue(arr, getZ3Expr(0));
      storeValue(arr + 1, getZ3Expr(1));
+     addToSolver(a == getZ3Expr(10));
      expr cond = (a > getZ3Expr(5));
      addToSolver(p == ite(cond, arr, arr + 1));
  
