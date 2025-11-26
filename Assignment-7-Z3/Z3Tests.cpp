@@ -69,9 +69,10 @@ void Z3Tests::test1()
     expr b = getZ3Expr("b");
 
     addToSolver(a == ctx.int_val(0));
-    addToSolver(b == a + 1);
+    addToSolver(b == a + ctx.int_val(1));
 
     addToSolver(b > ctx.int_val(0));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -101,9 +102,10 @@ void Z3Tests::test2()
 
     addToSolver(q == loadValue(p));
     storeValue(p, ctx.int_val(3));
-    addToSolver(b == loadValue(p) + 1);
+    addToSolver(b == loadValue(p) + ctx.int_val(1));
 
     addToSolver(b > ctx.int_val(3));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -141,7 +143,8 @@ void Z3Tests::test3()
     addToSolver(r == loadValue(p));
     addToSolver(x == loadValue(r));
 
-    addToSolver(x == ctx.int_val(10));
+    addToSolver(x == getZ3Expr(10));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -183,6 +186,7 @@ void Z3Tests::test4()
     addToSolver(b == loadValue(y));
 
     addToSolver((a + b) > ctx.int_val(20));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -214,6 +218,7 @@ void Z3Tests::test5()
     addToSolver(b1 == b);
 
     addToSolver(b1 >= ctx.int_val(5));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -249,7 +254,8 @@ void Z3Tests::test6()
     expr valB = loadValue(bPtr);
     addToSolver(p == z3::ite(valA < valB, aPtr, bPtr));
 
-    addToSolver(loadValue(p) == ctx.int_val(5));
+    addToSolver(loadValue(p) == getZ3Expr(5));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -278,8 +284,9 @@ void Z3Tests::test7()
     addToSolver(c == ctx.int_val(3));
 
     addToSolver(d == z3::ite(a > ctx.int_val(0), b + c, b - c));
-    addToSolver(d == ctx.int_val(5));
+    addToSolver(d == getZ3Expr(5));
 
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -313,7 +320,8 @@ void Z3Tests::test8()
     addToSolver(a == ctx.int_val(10));
     addToSolver(p == z3::ite(a > ctx.int_val(5), arr0, arr1));
 
-    addToSolver(loadValue(p) == ctx.int_val(0));
+    addToSolver(loadValue(p) == getZ3Expr(0));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -364,7 +372,8 @@ void Z3Tests::test9()
     addToSolver(y == loadValue(r));
     addToSolver(z == loadValue(q) + loadValue(y));
 
-    addToSolver(z == ctx.int_val(15));
+    addToSolver(z == getZ3Expr(15));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
@@ -394,7 +403,8 @@ void Z3Tests::test10()
     addToSolver(k_after_foo_x == ctx.int_val(3));
     addToSolver(x == k_after_foo_x);
 
-    addToSolver(x == ctx.int_val(3) && y == ctx.int_val(2));
+    addToSolver(x == getZ3Expr(3) && y == getZ3Expr(2));
+    printExprValues();
     std::cout << solver.check() << std::endl;
 }
 
